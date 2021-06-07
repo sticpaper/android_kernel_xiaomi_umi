@@ -16,7 +16,7 @@
 #include "segment.h"
 #include "gc.h"
 
-struct proc_dir_entry *f2fs_proc_root;
+static struct proc_dir_entry *f2fs_proc_root;
 
 /* Sysfs support for f2fs */
 enum {
