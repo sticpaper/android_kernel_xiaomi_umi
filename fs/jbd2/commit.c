@@ -287,8 +287,17 @@ static int journal_finish_inode_data_buffers(journal_t *journal,
 		if (jinode->i_next_transaction) {
 			jinode->i_transaction = jinode->i_next_transaction;
 			jinode->i_next_transaction = NULL;
+			jinode->i_dirty_start = jinode->i_next_dirty_start;
+			jinode->i_dirty_end = jinode->i_next_dirty_end;
+			jinode->i_next_dirty_start = 0;
+			jinode->i_next_dirty_end = 0;
 			list_add(&jinode->i_list,
 				&jinode->i_transaction->t_inode_list);
+
+			if (jinode->i_flags & JI_WRITE_DATA)
+				atomic_inc(&jinode->i_transaction->t_write_inodes);
+			else
+				atomic_inc(&jinode->i_transaction->t_wait_inodes);
 		} else {
 			jinode->i_transaction = NULL;
 			jinode->i_dirty_start = 0;
