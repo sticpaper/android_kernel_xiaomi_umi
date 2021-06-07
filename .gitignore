@@ -130,6 +130,19 @@ x509.genkey
 # Kconfig presets
 all.config
 
+# out-kernel-files
+out
+
+# build-kernel-scripts
+phone_build.sh
+server_build.sh
+
+# kernel_modules
+paper_modules
+
+# kernel_tools
+kernel_tool
+
 # Kdevelop4
 *.kdev4
 
